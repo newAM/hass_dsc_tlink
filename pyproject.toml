@@ -1,0 +1,45 @@
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+
+[tool.ruff]
+target-version = "py314"
+line-length = 88
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+  "COM812",   # trailing comma formatter conflict
+  "D203",     # incompatible with D211
+  "D213",     # incompatible with D212
+  "ISC001",   # implicit string concat formatter conflict
+  "ANN401",   # Any allowed for HA integration boundaries
+  "TD",       # to-do comments
+  "FIX",      # to-do comments
+  "CPY001",   # no copyright headers
+  "TC001",
+  "TC002",
+  "TC003",    # imports stay at module top (HA style)
+  "TRY003",
+  "EM101",
+  "EM102",    # exception message style
+  "FBT001",
+  "FBT002",
+  "FBT003",   # protocol flags are positional by wire format
+  "PLR2004",  # protocol magic words live in the message tables
+  "ASYNC109", # timeout parameters are the library API
+  "ARG002",   # handlers/callbacks with fixed signatures
+  # Same docstring/length relaxations as HA core:
+  "D100",
+  "D101",
+  "D102",
+  "D103",
+  "D107",
+  "E501",
+]
+
+[tool.ruff.lint.per-file-ignores]
+# Vendored protocol library: keep stdlib-only.
+"custom_components/dsc_tlink/tlink/*" = ["PLR0913"]
+"tests/*" = ["S101", "D", "PLR2004", "SLF001", "INP001"]
+"tools/*" = ["T201", "D", "INP001", "S101"]
